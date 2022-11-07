@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import moment from "moment";
 import {
   BarChart,
@@ -11,9 +10,7 @@ import {
   Legend,
 } from "recharts";
 import Footer from "./Footer";
-import { Button, Container } from "@chakra-ui/react";
-
-
+import { Button, Container, SkeletonText } from "@chakra-ui/react";
 
 function Barchart({ setIsLoggedIn }) {
   const [rates, setRates] = useState([]);
@@ -53,8 +50,6 @@ function Barchart({ setIsLoggedIn }) {
         setTimestamp(result.timestamp);
       })
       .catch((error) => console.log("error", error));
-
-
   }
 
   useEffect(() => {
@@ -66,20 +61,15 @@ function Barchart({ setIsLoggedIn }) {
     setIsLoggedIn(false);
   }
   return (
-    <Container centerContent>
+    <Container  width={[1, 1 / 2, 1 / 4]} centerContent>
       <div>
         {rates.length ? (
+          <Container bg={"blue.100"} mt={50} ml={[5,15,30]} width={[300,400,600]} height={[200,300,400]} centerContent >
           <BarChart
-            width={600}
-            height={500}
+            width={500}
+            height={400}
             data={rates}
-            margin={{
-              top: 50,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
+            >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
@@ -88,11 +78,20 @@ function Barchart({ setIsLoggedIn }) {
 
             <Bar dataKey="rate" fill="teal" />
           </BarChart>
+          </Container>
         ) : (
-          "Loading..."
+          <Container mt={50}>
+            <SkeletonText noOfLines={15} spacing={7} />
+          </Container>
         )}
         <Footer time={moment().fromNow(timestamp)} />
-        <Button m={8} ml={250} colorScheme={"teal"} variant="solid" onClick={handleLog}>
+        <Button
+          m={[4,6,8]}
+          ml={[100,150,250]}
+          colorScheme={"teal"}
+          variant="solid"
+          onClick={handleLog}
+        >
           Log Out
         </Button>
       </div>

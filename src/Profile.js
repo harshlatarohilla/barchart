@@ -1,24 +1,25 @@
 import {
-  Box,
   Button,
   Center,
   Container,
-  Flex,
   FormControl,
   FormLabel,
   Input,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import validator from "validator";
 
 function Profile({ setIsLoggedIn }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (data) => {
     data.preventDefault();
     localStorage.setItem(email, name);
-    console.log(name, email, name);
-    console.log(localStorage.getItem(email));
+    // console.log(name, email, name);
+    // console.log(localStorage.getItem(email));
     setIsLoggedIn(true);
   };
 
@@ -28,16 +29,20 @@ function Profile({ setIsLoggedIn }) {
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
+    validator.isEmail(email)
+      ? setMessage("")
+      : setMessage("Enter correct email. ");
   };
 
   return (
-    <Container pt={16} mt={20} maxW="container.md" centerContent>
-      <form onSubmit={handleSubmit} isrequired>
+    <Container pt={16} mt={[5, 10, 20]} width={[1, 1 / 2, 1 / 4]} centerContent>
+      <form onSubmit={handleSubmit} required>
         <FormControl isRequired>
           <FormLabel ml={3} htmlFor="name">
             Username:{" "}
           </FormLabel>
           <Input
+            width="auto"
             rounded={19}
             type="text"
             name="name"
@@ -53,6 +58,7 @@ function Profile({ setIsLoggedIn }) {
             Email:
           </FormLabel>
           <Input
+            width="auto"
             rounded={19}
             type="email"
             name="email"
@@ -61,12 +67,15 @@ function Profile({ setIsLoggedIn }) {
             onChange={handleEmail}
             placeholder="jane@react.com"
             required
-          />
+          />{" "}
         </FormControl>
+        <Text pt={2} pl={3} color="red" position={"absolute"}>
+          {message}
+        </Text>
         <Center>
           <Button
             rounded={19}
-            w="full"
+            w="auto"
             mt={10}
             colorScheme={"teal"}
             variant="solid"
