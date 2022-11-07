@@ -13,32 +13,7 @@ import {
 import Footer from "./Footer";
 import { Button, Container } from "@chakra-ui/react";
 
-// const data = [
-//   {
-//     name: "USD",
-//     rate: 400,
-//   },
-//   {
-//     name: "AED",
-//     rate: 300,
-//   },
-//   {
-//     name: "INR",
-//     rate: 200,
-//   },
-//   {
-//     name: "CHF",
-//     rate: 278,
-//   },
-//   {
-//     name: "CAD",
-//     rate: 189,
-//   },
-//   {
-//     name: "JPY",
-//     rate: 239,
-//   },
-// ];
+
 
 function Barchart({ setIsLoggedIn }) {
   const [rates, setRates] = useState([]);
@@ -79,11 +54,7 @@ function Barchart({ setIsLoggedIn }) {
       })
       .catch((error) => console.log("error", error));
 
-    // const res = await axios.get(
-    //   "https://api.exchangeratesapi.io/v1/latest",
-    //   { headers: { apikey: "pdQ1xlVok7k73SRUwTVfFCZJGjjKl8x6" } }
-    // );
-    // return res.data;
+
   }
 
   useEffect(() => {
